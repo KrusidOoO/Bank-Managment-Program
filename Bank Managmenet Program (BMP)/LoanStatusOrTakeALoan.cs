@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Linq;
 
 
 namespace Bank_Managmenet_Program__BMP_
@@ -23,6 +22,9 @@ namespace Bank_Managmenet_Program__BMP_
             int trueOrNot = 1;
             sql = $"SELECT LoanStatus FROM Balance WHERE CustomerName LIKE '{user}%'";
             command = new SqlCommand(sql, connect);
+            reader = command.ExecuteReader();
+            Object[] values = new Object[reader.FieldCount];
+            int fieldCount = reader.GetValues(values);
             if (trueOrNot == 0)
             {
                 Console.WriteLine("There is a loan associated with your account.");
@@ -36,18 +38,17 @@ namespace Bank_Managmenet_Program__BMP_
 
                 if (LoanSelection.Key == ConsoleKey.Y)
                 {
-                    reader = command.ExecuteReader();
                     Console.WriteLine("Here is a list of loan options\n------------------------------------------------------------");
-                    while (reader.Read())
+                    for(int i=0;i<fieldCount;i++)
                     {
-                        LoanOut = LoanOut + "Amount: " + reader.GetValue(0) + "\nRate: " + reader.GetValue(1) + "\nLoan plan: " + reader.GetValue(2) + "\n";
+                        Console.WriteLine(values[i]);
                     }
-                    Console.WriteLine(LoanOut + "\n------------------------------------------------------------");
+                    Console.WriteLine("\n------------------------------------------------------------");
 
                 }
                 else if (LoanSelection.Key == ConsoleKey.N)
                 {
-                    
+
                 }
             }
         }
