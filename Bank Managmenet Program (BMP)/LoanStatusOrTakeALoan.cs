@@ -43,7 +43,6 @@ namespace Bank_Managmenet_Program__BMP_
                         LoanOut = LoanOut + "Amount: " + reader.GetValue(0) + "\nRate: " + reader.GetValue(1) + "\nLoan plan: " + reader.GetValue(2) + "\n";
                     }
                     Console.WriteLine(LoanOut + "\n------------------------------------------------------------");
-
                 }
                 else if (LoanSelection.Key == ConsoleKey.N)
                 {
