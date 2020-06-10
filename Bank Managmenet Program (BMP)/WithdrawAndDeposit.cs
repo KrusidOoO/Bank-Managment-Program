@@ -26,11 +26,8 @@ namespace Bank_Managmenet_Program__BMP_
             int CashInput = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("------------------------------------------------------------\nHere is your new balance:\n");
             sql = $"UPDATE Balance SET Balance=Balance+{CashInput} WHERE CustomerName LIKE '{user}%'";
-
-            command = new SqlCommand(sql, connect);
             adapter.UpdateCommand = new SqlCommand(sql, connect);
             adapter.UpdateCommand.ExecuteNonQuery();
-
             sql = $"SELECT * FROM Balance WHERE CustomerName LIKE '{user}%'";
             command = new SqlCommand(sql, connect);
             reader = command.ExecuteReader();

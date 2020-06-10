@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 
 namespace Bank_Managmenet_Program__BMP_
@@ -22,12 +21,10 @@ namespace Bank_Managmenet_Program__BMP_
             WithdrawAndDeposit WAD = new WithdrawAndDeposit();
             Balance Bal = new Balance();
             LoanStatusOrTakeALoan LSOTAL = new LoanStatusOrTakeALoan();
+            LoginClass loginClass = new LoginClass();
 
             //Program variables
             string user = "";
-            List<string> users = new List<string> { "Andreas", "Daniel", "Emil", "admin" };
-            List<string> passwords = new List<string> { "1234", "4321", "54321", "admin" };
-
             //SQL commands and variables
             string connectionString;
             SqlConnection connect;
@@ -37,34 +34,9 @@ namespace Bank_Managmenet_Program__BMP_
 
             //Actual program
 
-            int loginAttempts = 0;
+            loginClass.LoginHere();
+            Console.ReadKey();
 
-            //Simple iteration upto three times
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine("Enter username");
-                user = Console.ReadLine();
-                Console.WriteLine("Enter password");
-                string password = Console.ReadLine();
-
-                if (!users.Contains(user) || !passwords.Contains(password))
-                    loginAttempts++;
-                else
-                    break;
-            }
-
-            //Display the result
-            if (loginAttempts > 2)
-            {
-                Console.WriteLine("Login failure");
-                Console.ReadKey();
-                Environment.Exit(0);
-            }
-            else
-            {
-                Console.WriteLine("Login successful");
-            }
-                Console.ReadKey();
 
             SelectionInterface();
 
