@@ -10,7 +10,7 @@ namespace Bank_Managmenet_Program__BMP_
     {
         //TO DO LIST
         //1. Create a simple login system and "main menu" - DONE
-        //2. Create classes for each "function" of main program - PARTLY DONE
+        //2. Create classes for each "function" of main program - PARTLY DONE (Not currently knowing how many functions I want in the program)
         //3. Establish SQL connection, and understand it better - DONE
         //4. Use SQL to store and retrieve data - IN PROGRESS
         //5. Quality of life improvements - NOT STARTED
