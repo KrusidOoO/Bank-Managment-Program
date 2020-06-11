@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace Bank_Managmenet_Program__BMP_
 {
@@ -22,13 +21,13 @@ namespace Bank_Managmenet_Program__BMP_
             command = new SqlCommand(sql, connect);
             connect.Open();
             reader = command.ExecuteReader();
-            Console.WriteLine("------------------------------------------------------------\nHere is your balance:\n");
+            Console.WriteLine($"------------------------------------------------------------\n{user}, here is your balance:\n");
             while (reader.Read())
             {
                 Output = reader.GetValue(4) + " - " + reader.GetValue(1) + " " + reader.GetValue(2) + "\n";
             }
 
-            Console.WriteLine(Output + "\n------------------------------------------------------------");
+            Console.WriteLine(Output + "\n------------------------------------------------------------\nPress any key to return to the main menu");
             reader.Close();
             command.Dispose();
             Console.ReadKey();

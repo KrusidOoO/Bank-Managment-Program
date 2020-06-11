@@ -12,7 +12,6 @@ namespace Bank_Managmenet_Program__BMP_
         public void LoanStatus(string user)
         {
             ConsoleKeyInfo FinalLoanSelection;
-
             string connectionString;
             SqlConnection connect;
             SqlCommand command;
@@ -22,7 +21,6 @@ namespace Bank_Managmenet_Program__BMP_
             connectionString = @"Data Source=ANDREAS-KRUSE-G;Initial Catalog=BankManagement;Integrated Security=True;Pooling=False";
             connect = new SqlConnection(connectionString);
             connect.Open();
-
             Console.Clear();
             using (connect)
             {
@@ -35,26 +33,24 @@ namespace Bank_Managmenet_Program__BMP_
                         trueOrNot = reader.GetInt32(0);
                     }
                 }
-
             }
             if (trueOrNot == 1)
             {
                 Console.WriteLine("There is a loan associated with your account.\nHere is some information about your loan");
-                using(SqlConnection con1=new SqlConnection(connectionString))
+                using (SqlConnection con1 = new SqlConnection(connectionString))
                 {
-                    string LoanStatusString=$"SELECT * FROM Balance WHERE CustomerName LIKE {user}%";
-                    SqlCommand cmd1 = new SqlCommand(LoanStatusString,con1);
+                    string LoanStatusString = $"SELECT * FROM Balance WHERE CustomerName LIKE {user}%";
+                    SqlCommand cmd1 = new SqlCommand(LoanStatusString, con1);
                     con1.Open();
-                    using(SqlDataReader LoanReader=cmd1.ExecuteReader())
+                    using (SqlDataReader LoanReader = cmd1.ExecuteReader())
                     {
-                        while(LoanReader.Read())
+                        while (LoanReader.Read())
                         {
-                            LoanStatusOutput = LoanReader.GetValue(5).ToString()+" - "+LoanReader.GetValue(6).ToString()+" "+LoanReader.GetValue(2);
+                            LoanStatusOutput = LoanReader.GetValue(5).ToString() + " - " + LoanReader.GetValue(6).ToString() + " " + LoanReader.GetValue(2);
                         }
                     }
                 }
                 Console.WriteLine(LoanStatusOutput);
-
                 Console.ReadKey();
             }
             else if (trueOrNot == 0)
@@ -83,15 +79,15 @@ namespace Bank_Managmenet_Program__BMP_
                     Console.WriteLine(LoanOut);
                     Console.WriteLine("\n------------------------------------------------------------\nPress any of the following keys to select a loan amount and plan\n1. 5000 DKK\n2. 10000 DKK\n3. 15000 DKK");
                     FinalLoanSelection = Console.ReadKey();
-                    if(FinalLoanSelection.Key==ConsoleKey.D1)
+                    if (FinalLoanSelection.Key == ConsoleKey.D1)
                     {
                         LoanAmount = 5000;
                     }
-                    else if(FinalLoanSelection.Key==ConsoleKey.D2)
+                    else if (FinalLoanSelection.Key == ConsoleKey.D2)
                     {
                         LoanAmount = 10000;
                     }
-                    else if(FinalLoanSelection.Key==ConsoleKey.D3)
+                    else if (FinalLoanSelection.Key == ConsoleKey.D3)
                     {
                         LoanAmount = 15000;
                     }
