@@ -36,8 +36,10 @@ namespace Bank_Managmenet_Program__BMP_
                 int password = Convert.ToInt32(Console.ReadLine());
                 if (!users.Contains(user) || !passwords.Contains(password))
                 {
-                    Console.WriteLine("\n\nWe can see you do not have a user associated with this bank, would you like to create one?" +
-                        "\n(press \"Y\" for yes,\"N\" to enter your login information again or \"Esc\" to exit the application)");
+                    Console.WriteLine("------------------------------------------------------------\n" +
+                        "We can see you do not have a user associated with this bank\n" +
+                        "Would you like to create one?\n" +
+                        "(Press \"Y\" for yes,\"N\" to attempt login again or \"Esc\" to exit the application)");
                     ConsoleKeyInfo keyInfo;
                     keyInfo = Console.ReadKey();
                     if (keyInfo.Key == ConsoleKey.Y)
@@ -94,7 +96,6 @@ namespace Bank_Managmenet_Program__BMP_
             {
                 String CustomerQuery = "INSERT INTO Customers(CustomerID,FirstName,LastName,LoginName,LoginPassword,BalanceID) " +
                     "VALUES (@CustomerID,@FirstName,@LastName, @LoginName,@LoginPassword,@BalanceID)";
-
                 String BalanceQuery = "INSERT INTO Balance(BalanceID,Balance,Currency,Stocks,CustomerName,LoanStatus,LoanAmount) " +
                     "VALUES(@BalanceID,@Balance,@Currency,@Stocks,@CustomerName,@LoanStatus,@LoanAmount)";
                 using (SqlCommand command = new SqlCommand(CustomerQuery, connection))
@@ -105,13 +106,12 @@ namespace Bank_Managmenet_Program__BMP_
                     command.Parameters.AddWithValue("@LoginName", LoginName);
                     command.Parameters.AddWithValue("@LoginPassword", LoginPassword);
                     command.Parameters.AddWithValue("@BalanceID", NewBalanceID);
-
                     connection.Open();
                     int result = command.ExecuteNonQuery();
-
                     // Check Error
                     if (result < 0)
                         Console.WriteLine("Error inserting data into Database!");
+                    command.Dispose();
                 }
                 using (SqlCommand cmd = new SqlCommand(BalanceQuery, connection))
                 {
@@ -122,16 +122,20 @@ namespace Bank_Managmenet_Program__BMP_
                     cmd.Parameters.AddWithValue("@CustomerName", Firstname + " " + LastName);
                     cmd.Parameters.AddWithValue("@LoanStatus", 0);
                     cmd.Parameters.AddWithValue("@LoanAmount", 0);
-
                     int secondresult = cmd.ExecuteNonQuery();
-
                     if (secondresult < 0)
                         Console.WriteLine("Error inserting data into Database!");
+                    cmd.Dispose();
                 }
+                
             }
+            cmd1.Dispose();
+            cmd2.Dispose();
             Console.Clear();
-            Console.WriteLine("User succesfully created");
-            Thread.Sleep(500);
+            Console.WriteLine("------------------------------------------------------------\n" +
+                              "User succesfully created");
+            Thread.Sleep(2000);
+            Console.Clear();
         }
     }
 }

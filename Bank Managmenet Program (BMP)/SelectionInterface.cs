@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace Bank_Managmenet_Program__BMP_
 {
@@ -17,10 +19,15 @@ namespace Bank_Managmenet_Program__BMP_
             do
             {
                 Console.Clear();
-                Console.WriteLine("\nWelcome " + user + "\n\nPlease enter the number of the action you would like to take\n" +
-                                                           "------------------------------------------------------------");
-                Console.WriteLine("1. Deposit cash \n2. Withdraw cash \n3. Check your balance \n4. Check the status of your loan (if you got a loan)\nEsc. Close the application\n" +
-                    "------------------------------------------------------------");
+                Console.WriteLine("\nWelcome " + user + "\n\n" +
+                                  "Please enter the number of the action you would like to take\n" +
+                                  "------------------------------------------------------------");
+                Console.WriteLine("1. Deposit cash \n" +
+                                  "2. Withdraw cash \n" +
+                                  "3. Check your balance \n" +
+                                  "4. Check the status of your loan (if you got a loan)\n" +
+                                  "Esc. Close the application\n" +
+                                  "------------------------------------------------------------");
                 selection = Console.ReadKey();
                 Console.Clear();
                 if (selection.Key == ConsoleKey.D1)
@@ -48,6 +55,10 @@ namespace Bank_Managmenet_Program__BMP_
                     Console.Clear();
                 }
             } while (selection.Key != ConsoleKey.Escape);
+            Console.Clear();
+            Console.WriteLine("------------------------------------------------------------\n" +
+                              "We hope to see you again!");
+            Thread.Sleep(1000);
             connect.Close();
         }
     }
