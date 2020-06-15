@@ -56,8 +56,9 @@ namespace Bank_Managmenet_Program__BMP_
                 }
             } while (selection.Key != ConsoleKey.Escape);
             Console.Clear();
-            Console.WriteLine("------------------------------------------------------------\n" +
-                              "We hope to see you again!");
+            Console.WriteLine("------------------------------------------------------------\n\n" +
+                              "We hope to see you again!\n\n" +
+                              "------------------------------------------------------------");
             Thread.Sleep(1000);
             connect.Close();
         }
