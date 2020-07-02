@@ -26,7 +26,6 @@ namespace Bank_Managmenet_Program__BMP_
             {
                 Output = reader.GetValue(4) + " - " + reader.GetValue(1) + " " + reader.GetValue(2) + "\n";
             }
-
             Console.WriteLine(Output + "\n------------------------------------------------------------\nPress any key to return to the main menu");
             reader.Close();
             command.Dispose();

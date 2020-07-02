@@ -1,78 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading;
 
-namespace Bank_Managmenet_Program__BMP_
+namespace Bank_Managmenet_Program__BMP_.Classes
 {
-    class LoginClass
+    class UserCreation
     {
-        public string user = "";
-        public void LoginHere()
-        {
-            string connectionString;
-            connectionString = @"Data Source=ANDREAS-KRUSE-G;Initial Catalog=BankManagement;Integrated Security=True;Pooling=False";
-            SqlConnection connect;
-            connect = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT LoginName, LoginPassword FROM Customers", connect);
-            List<string> users = new List<string> { };
-            List<int> passwords = new List<int> { };
-            connect.Open();
-            int loginAttempts = 0;
-            for (int i = 0; i < 3; i++)
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
-                using (reader)
-                {
-                    while (reader.Read())
-                    {
-                        users.Add(reader.GetValue(0).ToString());
-                        passwords.Add(Convert.ToInt32(reader.GetValue(1)));
-                    }
-                }
-                Console.WriteLine("Enter username");
-                user = Console.ReadLine();
-                Console.WriteLine("Enter password");
-                int password = Convert.ToInt32(Console.ReadLine());
-                if (!users.Contains(user) || !passwords.Contains(password))
-                {
-                    Console.WriteLine("------------------------------------------------------------\n" +
-                        "We can see you do not have a user associated with this bank\n" +
-                        "Would you like to create one?\n" +
-                        "(Press \"Y\" for yes,\"N\" to attempt login again or \"Esc\" to exit the application)");
-                    ConsoleKeyInfo keyInfo;
-                    keyInfo = Console.ReadKey();
-                    if (keyInfo.Key == ConsoleKey.Y)
-                    {
-                        UserCreation();
-                    }
-                    else if (keyInfo.Key == ConsoleKey.N)
-                    {
-                        break;
-                    }
-                    else if (keyInfo.Key == ConsoleKey.Escape)
-                    {
-                        Console.Clear();
-                        Console.WriteLine("We hope to see you again!");
-                        Thread.Sleep(500);
-                        Environment.Exit(0);
-                    }
-                }
-                else if (users.Contains(user) || passwords.Contains(password))
-                    break;
-            }
-            if (loginAttempts > 2)
-            {
-                Console.WriteLine("Login failure, exiting application");
-                Thread.Sleep(500);
-                Environment.Exit(0);
-            }
-            else
-            {
-                Console.WriteLine("Login successful");
-            }
-        }
-        protected void UserCreation()
+        public void userCreation()
         {
             Console.Clear();
             string connectionString;
@@ -127,7 +61,7 @@ namespace Bank_Managmenet_Program__BMP_
                         Console.WriteLine("Error inserting data into Database!");
                     cmd.Dispose();
                 }
-                
+
             }
             cmd1.Dispose();
             cmd2.Dispose();
@@ -136,6 +70,9 @@ namespace Bank_Managmenet_Program__BMP_
                               "User succesfully created");
             Thread.Sleep(2000);
             Console.Clear();
+
+
+
         }
     }
 }
