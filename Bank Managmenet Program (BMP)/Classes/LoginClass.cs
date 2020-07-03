@@ -13,14 +13,18 @@ namespace Bank_Managmenet_Program__BMP_
         public int password;
         public void LoginHere()
         {
+            //SQL predefinitions
             string connectionString;
             connectionString = @"Data Source=ANDREAS-KRUSE-G;Initial Catalog=BankManagement;Integrated Security=True;Pooling=False";
             SqlConnection connect;
             connect = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("SELECT LoginName, LoginPassword FROM Customers", connect);
+
+            //Lists containing the retrieved usernames and passwords
             List<string> users = new List<string> { };
             List<int> passwords = new List<int> { };
-            connect.Open();
+
+            //Login Class variables and objects
             int loginAttempts = 0;
             Console.WriteLine("Do you wish to login to an existing account, or create a new one? \n(Press 1 to login to an exisiting account or 2 to create a new one)");
             ConsoleKeyInfo keyInfo = Console.ReadKey();
@@ -28,6 +32,7 @@ namespace Bank_Managmenet_Program__BMP_
             if (keyInfo.Key == ConsoleKey.D1)
             {
                 Console.Clear();
+                connect.Open();
                 for (int i = 0; i < 3; i++)
                 {
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -45,10 +50,7 @@ namespace Bank_Managmenet_Program__BMP_
                     password = Convert.ToInt32(Console.ReadLine());
                     if (users.Contains(user) || passwords.Contains(password))
                         break;
-
                 }
-
-
                 if (loginAttempts > 2)
                 {
                     Console.WriteLine("Login failure, exiting application");

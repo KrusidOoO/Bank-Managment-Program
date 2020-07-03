@@ -8,24 +8,27 @@ namespace Bank_Managmenet_Program__BMP_.Classes
     {
         public void userCreation()
         {
+
             Console.Clear();
             string connectionString;
             connectionString = @"Data Source=ANDREAS-KRUSE-G;Initial Catalog=BankManagement;Integrated Security=True;Pooling=False";
             SqlConnection connect;
             connect = new SqlConnection(connectionString);
-            SqlCommand cmd1 = new SqlCommand("SELECT MAX(CustomerID) FROM Customers", connect);
             connect.Open();
-            int NewCustomerID = (Int32)cmd1.ExecuteScalar() + 1;
+
+            SqlCommand cmd1 = new SqlCommand("SELECT MAX(CustomerID) FROM Customers", connect);
+            int newCustomerID = (Int32)cmd1.ExecuteScalar() + 1;
             Console.WriteLine("\nPlease enter your first name");
-            string Firstname = Console.ReadLine();
+            string firstName = Console.ReadLine();
             Console.WriteLine("\nPlease enter your last name");
-            string LastName = Console.ReadLine();
+            string lastName = Console.ReadLine();
             Console.WriteLine("\nPlease enter the name you wish to login as");
-            string LoginName = Console.ReadLine();
+            string loginName = Console.ReadLine();
             Console.WriteLine("\nPlease enter your desired login password");
-            int LoginPassword = int.Parse(Console.ReadLine());
+            int loginPassword = int.Parse(Console.ReadLine());
             SqlCommand cmd2 = new SqlCommand("SELECT MAX(BalanceID) FROM Customers", connect);
-            int NewBalanceID = (Int32)cmd2.ExecuteScalar() + 1;
+            int newBalanceID = (Int32)cmd2.ExecuteScalar() + 1;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 String CustomerQuery = "INSERT INTO Customers(CustomerID,FirstName,LastName,LoginName,LoginPassword,BalanceID) " +
@@ -34,12 +37,12 @@ namespace Bank_Managmenet_Program__BMP_.Classes
                     "VALUES(@BalanceID,@Balance,@Currency,@Stocks,@CustomerName,@LoanStatus,@LoanAmount)";
                 using (SqlCommand command = new SqlCommand(CustomerQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@CustomerID", NewCustomerID);
-                    command.Parameters.AddWithValue("@FirstName", Firstname);
-                    command.Parameters.AddWithValue("@LastName", LastName);
-                    command.Parameters.AddWithValue("@LoginName", LoginName);
-                    command.Parameters.AddWithValue("@LoginPassword", LoginPassword);
-                    command.Parameters.AddWithValue("@BalanceID", NewBalanceID);
+                    command.Parameters.AddWithValue("@CustomerID", newCustomerID);
+                    command.Parameters.AddWithValue("@FirstName", firstName);
+                    command.Parameters.AddWithValue("@LastName", lastName);
+                    command.Parameters.AddWithValue("@LoginName", loginName);
+                    command.Parameters.AddWithValue("@LoginPassword", loginPassword);
+                    command.Parameters.AddWithValue("@BalanceID", newBalanceID);
                     connection.Open();
                     int result = command.ExecuteNonQuery();
                     // Check Error
@@ -49,11 +52,11 @@ namespace Bank_Managmenet_Program__BMP_.Classes
                 }
                 using (SqlCommand cmd = new SqlCommand(BalanceQuery, connection))
                 {
-                    cmd.Parameters.AddWithValue("@BalanceID", NewBalanceID);
+                    cmd.Parameters.AddWithValue("@BalanceID", newBalanceID);
                     cmd.Parameters.AddWithValue("@Balance", 0);
                     cmd.Parameters.AddWithValue("@Currency", "DKK");
                     cmd.Parameters.AddWithValue("@Stocks", "NONE");
-                    cmd.Parameters.AddWithValue("@CustomerName", Firstname + " " + LastName);
+                    cmd.Parameters.AddWithValue("@CustomerName", firstName + " " + lastName);
                     cmd.Parameters.AddWithValue("@LoanStatus", 0);
                     cmd.Parameters.AddWithValue("@LoanAmount", 0);
                     int secondresult = cmd.ExecuteNonQuery();
