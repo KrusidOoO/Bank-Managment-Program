@@ -64,7 +64,6 @@ namespace Bank_Managmenet_Program__BMP_.Classes
                         Console.WriteLine("Error inserting data into Database!");
                     cmd.Dispose();
                 }
-
             }
             cmd1.Dispose();
             cmd2.Dispose();
@@ -73,9 +72,6 @@ namespace Bank_Managmenet_Program__BMP_.Classes
                               "User succesfully created");
             Thread.Sleep(2000);
             Console.Clear();
-
-
-
         }
     }
 }
